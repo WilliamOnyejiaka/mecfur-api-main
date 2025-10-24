@@ -1,6 +1,6 @@
 import rateLimit from "express-rate-limit";
 import { validateBody, uploads } from "../";
-import { ResourceType } from "./../../types/enums";
+import { ResourceType } from "./../../types/constants";
 import { createStore } from "../../config/redis";
 import { body } from "express-validator";
 import { emailValidator } from "../../validators";
