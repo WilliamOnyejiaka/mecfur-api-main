@@ -1,9 +1,10 @@
 import rateLimit from "express-rate-limit";
 import { validateBody, uploads } from "../";
-import { ResourceType } from "./../../types/constants";
+import { ResourceType } from "../../types/constants";
 import { createStore } from "../../config/redis";
 import { body } from "express-validator";
 import { emailValidator } from "../../validators";
+import {handleValidationErrors} from "../validators";
 
 // Configure rate limiter for GET requests
 const getLimiter = rateLimit({
@@ -33,118 +34,19 @@ export const editImages = [
 
 export const editProfile = [
     uploads(ResourceType.IMAGE).single("image"),
-    body('dateOfBirth')
-        .optional()
-        .isString()
-        .withMessage('Date of birth must be a string'),
-    body('gender')
-        .optional()
-        .trim()
-        .isString()
-        .toLowerCase()
-        .withMessage('Gender must be a string'),
-    body('minAge')
-        .optional()
-        .isString()
-        .withMessage('Minimum age must be a string'),
-    body('maxAge')
-        .optional()
-        .isString()
-        .withMessage('Maximum age must be a string'),
-    body('whatBringsYouHere')
-        .optional()
-        .trim()
-        .isString()
-        .withMessage('What brings you here must be a string'),
-    body('education')
-        .optional()
-        .trim()
-        .isString()
-        .withMessage('Education must be a string'),
-    body('religion')
-        .optional()
-        .trim()
-        .isString()
-        .withMessage('Religion must be a string'),
-    body('genderInterest')
-        .optional()
-        .trim()
-        .isString()
-        .toLowerCase()
-        .withMessage('Gender interest must be a string'),
-    body('lookingFor')
-        .optional()
-        .isArray()
-        .withMessage('Looking for must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(JSON.parse(value))) {
-                return value.length <= 10;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Looking for cannot exceed 10 items'),
-    body('hobbies')
-        .optional({ nullable: true })
-        .isArray()
-        .withMessage('Hobbies must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(value)) {
-                return value.length <= 20;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Hobbies cannot exceed 20 items'),
-    body('interests')
-        .optional({ nullable: true })
-        .isArray()
-        .withMessage('Interests must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(value)) {
-                return value.length <= 20;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Interests cannot exceed 20 items'),
-    body('pets')
-        .optional({ nullable: true })
-        .isArray()
-        .withMessage('Pets must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(value)) {
-                return value.length <= 5;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Pets cannot exceed 5 items'),
-    body('favoriteColors')
-        .optional({ nullable: true })
-        .isArray()
-        .withMessage('Favorite colors must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(value)) {
-                return value.length <= 10;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Favorite colors cannot exceed 10 items'),
-    body('spokenLanguages')
-        .optional({ nullable: true })
-        .isArray()
-        .withMessage('Spoken languages must be an array')
-        .custom((value) => {
-            if (value && Array.isArray(value)) {
-                return value.length <= 10;
-            }
-            return true; // Allow empty or undefined
-        })
-        .withMessage('Spoken languages cannot exceed 10 items'),
-    body('nativeLanguage')
-        .optional()
-        .isString()
-        .withMessage('Native language must be a string'),
-    body('height')
-        .optional()
-        .isNumeric()
-        .withMessage('Height must be a number'),
-    ...validateLocation
+    handleValidationErrors
 ];
+
+export const updatePassword = [
+    body('newPassword')
+        .isString()
+        .notEmpty()
+        .withMessage('newPassword is required')
+        .isLength({min: 8})
+        .withMessage('newPassword must be at least 8 characters long'),
+    body('password')
+        .isString()
+        .notEmpty()
+        .withMessage('password is required'),
+    handleValidationErrors
+]

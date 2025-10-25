@@ -27,4 +27,28 @@ export default class Mechanic extends BaseService {
             return this.responseData(statusCode, true, message);
         }
     }
+
+    //
+    // public async updateLocation(userId: string, longitude: number, latitude: number) {
+    //     try {
+    //         const updatedUser = await UserModel.findByIdAndUpdate(
+    //             userId,
+    //             {
+    //                 $set: {
+    //                     location: {
+    //                         type: "Point",
+    //                         coordinates: [longitude, latitude],
+    //                     },
+    //                 }
+    //             },
+    //             { new: true, runValidators: true }
+    //         ).select("location");
+    //
+    //         if (!updatedUser) return this.responseData(404, true, "User was not found");
+    //         return this.responseData(200, false, "User's location was updated successfully");
+    //     } catch (error) {
+    //         const { statusCode, message } = this.handleMongoError(error);
+    //         return this.responseData(statusCode, true, message);
+    //     }
+    // }
 }

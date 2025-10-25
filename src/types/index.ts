@@ -21,6 +21,18 @@ export interface Match {
     sharedSpokenLanguages?: string[];
 }
 
+export type MechanicLocation = {
+    mechanicId: string,
+    latitude: number,
+    longitude: number,
+    timestamp: Date,
+};
+
+export interface Coordinates {
+    latitude: number;
+    longitude: number;
+}
+
 
 export interface SignUpData {
     firstName?: string;
@@ -53,27 +65,8 @@ export interface SignUpData {
 export interface EditData {
     firstName?: string;
     lastName?: string;
-    bio?: string;
     email?: string;
     phone?: string;
-    longitude?: string;
-    latitude?: string;
-    dateOfBirth?: string;
-    gender?: string;
-    minAge?: string;
-    maxAge?: string;
-    whatBringsYouHere?: string;
-    education?: string;
-    religion?: string;
-    genderInterest?: string;
-    lookingFor?: string[];
-    hobbies?: string[];
-    interests?: string[];
-    pets?: string[];
-    favoriteColors?: string[];
-    spokenLanguages?: string[];
-    nativeLanguage?: string,
-    height?: number,
     file?: any; // Adjust type based on actual file upload mechanism (e.g., Buffer, File, etc.)
 }
 

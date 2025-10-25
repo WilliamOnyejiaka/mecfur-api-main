@@ -11,7 +11,9 @@ export enum OTPType {
 
 export enum Events {
     APP_ERROR = "appError",
-    ONLINE_PRESENCE = "onlinePresence"
+    ONLINE_PRESENCE = "onlinePresence",
+    NEARBY_MECHANICS="nearByMechanics",
+    TRACK_MECHANIC="trackMechanic"
 }
 
 export enum Namespaces {
@@ -226,7 +228,8 @@ export const exchange = "mecfur_exchange";
 export enum QueueNames {
     USER="mecfur_user_queue",
     NOTIFICATION="mecfur_notification_queue",
-    REQUEST="mecfur_request_queue"
+    REQUEST="mecfur_request_queue",
+    LOCATION="location_request_queue"
 }
 
 export enum QueueEvents {
@@ -235,4 +238,7 @@ export enum QueueEvents {
     USER_LIKE ="user.like",
     USER_VISIT="user.visit",
     MAKE_REQUEST="request.make_request",
-};
+    LOCATION_UPDATE="location.update",
+    LOCATION_NEAR_BY="location.near_by",
+    TRACK_MECHANIC="location.track_mechanic"
+}

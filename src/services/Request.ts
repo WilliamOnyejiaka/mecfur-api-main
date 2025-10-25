@@ -213,7 +213,7 @@ export default class Request extends BaseService {
                 data: {jobDetails: "updatedJob", mechanic: mechanic},
             });
 
-            return this.responseData(HttpStatus.OK, false, "Job was accepted successfully.", updatedRequest);
+            return this.responseData(HttpStatus.OK, false, "Job was declined successfully.", updatedRequest);
 
         } catch (error) {
             const {statusCode, message} = this.handleMongoError(error);

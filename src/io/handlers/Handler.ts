@@ -8,11 +8,4 @@ export default class Handler {
             data: data
         };
     }
-
-    public static handleRepoError(repoResult: any) {
-        if (repoResult.error) {
-            return this.responseData(true, repoResult.message as string);
-        }
-        return null;
-    }
 }

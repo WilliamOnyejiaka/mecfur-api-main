@@ -15,6 +15,7 @@ const mechanicLocationSchema = new Schema({
             },
         },
         s2CellId: {type: String, default: ""},
+        timestamp: {type: Number, default: Date.now()},
     },
     {
         timestamps: true,
