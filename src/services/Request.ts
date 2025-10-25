@@ -199,7 +199,7 @@ export default class Request extends BaseService {
                 'cancelled'
             ].includes(status)) return this.responseData(HttpStatus.BAD_REQUEST, true, `No action can be taken for this job because it has a ${status} status.`);
 
-            const updatedRequest = await JobRequestModel.findOneAndUpdate(
+            const updatedRequest = await JobRequestModel.findOneAndUpdate( // If the mehanic has already declined , don't update 
                 {_id: requestObjectId},
                 {$set: {status: "declined"}},
                 {returnDocument: 'after'}

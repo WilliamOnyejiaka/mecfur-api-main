@@ -83,6 +83,7 @@ export default class Location extends BaseService {
             lastUpdated: timestamp
         };
 
+        // queue redis logic
         try {
             // Store in Redis (TTL of 30 seconds) and cell set
             await redisClient.setex(`mechanic:${mechanicId}`, 30, JSON.stringify(mechanic));
