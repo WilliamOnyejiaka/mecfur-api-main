@@ -7,9 +7,12 @@ import {RabbitMQ} from "./RabbitMQ";
 import {logger} from "../config";
 import BaseService from "./bases/BaseService";
 
-const S2_LEVEL = 13;
+const S2_LEVEL = 14;
 
 export default class Location extends BaseService {
+
+    private coordinatesKey: string = "location:mechanic";
+
     /**
      * Validates if latitude and longitude are within valid ranges.
      * @param latitude The latitude value (-90 to 90 degrees).
@@ -83,12 +86,14 @@ export default class Location extends BaseService {
             lastUpdated: timestamp
         };
 
+        const cellEx = 15;
+
         // queue redis logic
         try {
             // Store in Redis (TTL of 30 seconds) and cell set
-            await redisClient.setex(`mechanic:${mechanicId}`, 30, JSON.stringify(mechanic));
+            await redisClient.setex(`${this.coordinatesKey}:${mechanicId}`, cellEx, JSON.stringify(mechanic));
             await redisClient.sadd(`cell:${cellToken}`, mechanicId);
-            await redisClient.expire(`cell:${cellToken}`, 15);
+            await redisClient.expire(`cell:${cellToken}`, cellEx);
 
             return true;
         } catch (error) {
@@ -120,15 +125,15 @@ export default class Location extends BaseService {
         lat: number,
         lng: number,
         radiusKm: number = 20,
-        s2Level: number = S2_LEVEL
+        limit: number = 20
     ) {
         try {
             const latLng = new S2.LatLng(lat, lng);
 
             // Get covering cells for the radius
             const coveringOptions = {
-                min: s2Level,
-                max: s2Level,
+                min: S2_LEVEL,
+                max: S2_LEVEL,
                 max_cells: 20 // Limit to 20 cells
             };
 
@@ -143,13 +148,18 @@ export default class Location extends BaseService {
                 const cellTokens = covering.cellIds().map(cellId => cellId.token());
 
                 const mechanics = [];
+                let count = 0;
                 for (const cellToken of cellTokens) {
+                    if (count >= limit) {
+                        break; // Stop if we've reached the mechanic limit
+                    }
                     const mechanicIds = await redisClient.smembers(`cell:${cellToken}`);
                     for (const mechanicId of mechanicIds) {
-                        const mechanicData = await redisClient.get(`mechanic:${mechanicId}`);
+                        const mechanicData = await redisClient.get(`${this.coordinatesKey}:${mechanicId}`);
                         if (mechanicData) {
                             const mechanic = JSON.parse(mechanicData);
                             mechanics.push(mechanic);
+                            count += 1;
                         }
                     }
                 }
@@ -159,15 +169,13 @@ export default class Location extends BaseService {
                     Location.haversineDistance(lat, lng, a.latitude, a.longitude) -
                     Location.haversineDistance(lat, lng, b.latitude, b.longitude)
                 );
-                // return mechanics.slice(0, 10);
                 return mechanics;
-
             }
             return [];
         } catch (error) {
             console.error('Redis query failed:', error);
             logger.info("🚚 Falling back to mongodb for nearBy mechanics");
-            return this.findNearbyMechanicsMongodb(lat, lng, radiusKm, s2Level);
+            return await this.findNearbyMechanicsMongodb(lat, lng, radiusKm, limit);
         }
     }
 
@@ -175,10 +183,9 @@ export default class Location extends BaseService {
         lat: number,
         lng: number,
         radiusKm: number = 20,
-        s2Level: number = S2_LEVEL
+        limit: number = 20
     ) {
         const page = 1;
-        const limit = 20;
         const skip = (page - 1) * limit;
 
         try {

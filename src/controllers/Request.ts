@@ -17,7 +17,8 @@ export default class RequestController {
             vehicleModel,
             vehicleYear,
             pickupAddress,
-            vehiclePlate
+            vehiclePlate,
+            radius
         } = req.body;
 
         const serviceResult = await RequestController.service.createJob(
@@ -30,7 +31,9 @@ export default class RequestController {
             vehicleYear,
             vehiclePlate,
             pickupAddress,
-            userId);
+            userId,
+            Number(radius)
+            );
         Controller.response(res, serviceResult);
     }
 

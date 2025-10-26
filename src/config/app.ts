@@ -22,7 +22,7 @@ import {EnvKey} from "./env";
 
 import {Location} from "./../services"
 import {runSampleTests} from "../services/test";
-import {mechanic} from "../routes";
+import {mechanic, rating} from "../routes";
 
 export default async function createApp(pubClient: RedisClientType, subClient: RedisClientType) {
     const app: Application = express();
@@ -108,6 +108,8 @@ export default async function createApp(pubClient: RedisClientType, subClient: R
     app.use("/api/v1/mechanics", verifyJWT([UserType.MECHANIC]), mechanic);
     app.use("/api/v1/users/notification", verifyJWT(["any"]), notificationRoute);
     app.use("/api/v1/requests", requestRoute);
+    app.use("/api/v1/ratings", rating);
+
 
     app.post('/api/v1/publish/:queueName/:eventType', async (req: Request, res: Response) => {
         const queueName = req.params.queueName as QueueName;

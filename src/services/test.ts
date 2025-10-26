@@ -1,5 +1,8 @@
 import S2 from '@radarlabs/s2';
 import redisClient from './../config/redis';
+import {Location} from ".";
+import {MechanicLocation} from "../types";
+
 
 // S2 cell level for ~1.27 km² precision
 const S2_LEVEL = 13;
@@ -118,62 +121,77 @@ export const PORT_HARCOURT_CENTER = {
 };
 
 // Drivers distributed around the city center (within ~5km radius)
-export const driversNearCenter: DriverLocation[] = [
+export const driversNearCenter: MechanicLocation[] = [
     {
-        driverId: 'driver-001',
+        // driverId: 'driver-001',
+        mechanicId: "68fbc24db6081d63cf238127",
         latitude: 4.8156,
         longitude: 7.0498,
         timestamp: Date.now(),
-        name: 'At Pleasure Park'
+        // name: 'At Pleasure Park'
     },
     {
-        driverId: 'driver-002',
+        // driverId: 'driver-002',
+        mechanicId: "68fda661050610ada5e8260d",
+
         latitude: 4.8201,
         longitude: 7.0534,
         timestamp: Date.now(),
-        name: 'Near Trans Amadi'
+        // name: 'Near Trans Amadi'
     },
     {
-        driverId: 'driver-003',
+        // driverId: 'driver-003',
+        mechanicId: "68fda66f050610ada5e82612",
+
         latitude: 4.8089,
         longitude: 7.0421,
         timestamp: Date.now(),
-        name: 'Near Port Harcourt Mall'
+        // name: 'Near Port Harcourt Mall'
     },
     {
-        driverId: 'driver-004',
+        // driverId: 'driver-004',
+        mechanicId: "68fda677050610ada5e82617",
+
         latitude: 4.8234,
         longitude: 7.0389,
         timestamp: Date.now(),
-        name: 'Near Garrison'
+        // name: 'Near Garrison'
     },
     {
-        driverId: 'driver-005',
+        // driverId: 'driver-005',
+        mechanicId: "68fda67f050610ada5e8261c",
+
         latitude: 4.8098,
         longitude: 7.0612,
         timestamp: Date.now(),
-        name: 'Near Rumuola'
+        // name: 'Near Rumuola'
     },
     {
-        driverId: 'driver-006',
+        // driverId: 'driver-006',
+        mechanicId: "68fda688050610ada5e82621",
+
         latitude: 4.8312,
         longitude: 7.0523,
         timestamp: Date.now(),
-        name: 'Near D-Line'
+        // name: 'Near D-Line'
     },
     {
-        driverId: 'driver-007',
+        // driverId: 'driver-007',
+        mechanicId: "68fda68f050610ada5e82626",
+
         latitude: 4.8045,
         longitude: 7.0489,
         timestamp: Date.now(),
-        name: 'Near Agip'
+        // name: 'Near Agip'
     },
     {
-        driverId: 'driver-008',
+        // driverId: 'driver-008',
+        mechanicId: "68fda69e050610ada5e82631",
+
         latitude: 4.8189,
         longitude: 7.0298,
         timestamp: Date.now(),
-        name: 'Near Elekahia'
+        // name: 'Near Elekahia'
     }
 ];
 
@@ -412,10 +430,12 @@ export async function runSampleTests(
 ) {
     console.log('🚀 Starting driver location tests...\n');
 
+    const location = new Location();
+
     // Test 1: Update driver locations around city center
     console.log('📍 Test 1: Updating driver locations...');
     for (const driver of driversNearCenter) {
-        await updateDriverLocation(driver);
+        await location.updateMechanicLocation(driver);
     }
     console.log(`✅ Added ${driversNearCenter.length} drivers\n`);
 
@@ -424,34 +444,34 @@ export async function runSampleTests(
     const nearby = await findNearbyDrivers(
         lat,
         lon,
-        0.5
+        10
     );
     console.log(`✅ Found ${nearby.length} drivers`);
     console.log('Drivers:', nearby.map(d => d.driverId).join(', '));
     console.log('');
-
-    // Test 3: Narrow search (1km)
-    console.log('🔍 Test 3: Narrow search (1km radius)...');
-    const nearbyNarrow = await findNearbyDrivers(
-        PORT_HARCOURT_CENTER.lat,
-        PORT_HARCOURT_CENTER.lng,
-        1
-    );
-    console.log(`✅ Found ${nearbyNarrow.length} drivers within 1km`);
-    console.log('');
-
-    // Test 4: Airport area search
-    console.log('✈️ Test 4: Airport area search...');
-    for (const driver of driversNearAirport) {
-        await updateDriverLocation(driver);
-    }
-    const airportDrivers = await findNearbyDrivers(
-        PORT_HARCOURT_AIRPORT.lat,
-        PORT_HARCOURT_AIRPORT.lng,
-        3
-    );
-    console.log(`✅ Found ${airportDrivers.length} drivers near airport`);
-    console.log('');
+    //
+    // // Test 3: Narrow search (1km)
+    // console.log('🔍 Test 3: Narrow search (1km radius)...');
+    // const nearbyNarrow = await findNearbyDrivers(
+    //     PORT_HARCOURT_CENTER.lat,
+    //     PORT_HARCOURT_CENTER.lng,
+    //     1
+    // );
+    // console.log(`✅ Found ${nearbyNarrow.length} drivers within 1km`);
+    // console.log('');
+    //
+    // // Test 4: Airport area search
+    // console.log('✈️ Test 4: Airport area search...');
+    // for (const driver of driversNearAirport) {
+    //     await updateDriverLocation(driver);
+    // }
+    // const airportDrivers = await findNearbyDrivers(
+    //     PORT_HARCOURT_AIRPORT.lat,
+    //     PORT_HARCOURT_AIRPORT.lng,
+    //     3
+    // );
+    // console.log(`✅ Found ${airportDrivers.length} drivers near airport`);
+    // console.log('');
 
     console.log('✨ All tests completed!');
 }

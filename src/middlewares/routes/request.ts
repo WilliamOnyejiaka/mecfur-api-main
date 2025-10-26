@@ -85,5 +85,9 @@ export const createJob = [
         .notEmpty()
         .withMessage('Vehicle plate is required and must be a string'),
 
+    body('radius')
+        .isNumeric()
+        .withMessage('Radius must be a number'),
+
     handleValidationErrors
 ];

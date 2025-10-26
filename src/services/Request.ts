@@ -6,6 +6,8 @@ import JobRequestModel from "../models/JobRequestModel";
 import MechanicModel from "../models/MechanicModel";
 import {RabbitMQ} from "./RabbitMQ";
 import {Types} from 'mongoose';
+import {Location} from ".";
+
 
 export default class Request extends BaseService {
 
@@ -76,7 +78,8 @@ export default class Request extends BaseService {
                            vehicleYear: number,
                            vehiclePlate: string,
                            pickupAddress: string,
-                           userId: string
+                           userId: string,
+                           radius: number
     ) {
         try {
 
@@ -95,19 +98,16 @@ export default class Request extends BaseService {
                 userId,
                 status: "pending"
             });
-            // const nearByMechanics = await this.nearByMechanicsWithSkill(pickupLon, pickupLat, 50, 1, 20, [issueType]);
 
-            // const mechanics = nearByMechanics.json.data?.records;
-            // if (mechanics && mechanics.length > 0) {
-            //     await Queues.postJob.add('job', {
-            //         mechanics,
-            //         jobId: result.id,
-            //         jobDetails: result
-            //     }, {jobId: `send-${Date.now()}`, priority: 1});
-            // }
-            // const data = {job: result, nearByMechanics: mechanics}
+            const message = {
+                payload: {longitude: pickupLon, latitude: pickupLat, userId, radius},
+                eventType: QueueEvents.CREATE_JOB,
+            };
+            await RabbitMQ.publishToExchange(QueueNames.REQUEST, QueueEvents.CREATE_JOB, message);
+            // const location = new Location();
+            // const nearByMechanics = await location.findNearbyMechanics(pickupLat, pickupLon, radius);
 
-            return this.responseData(HttpStatus.OK, false, "Job was created successfully.", result);
+            return this.responseData(HttpStatus.OK, false, "Job was created successfully.", {result});
         } catch (error) {
             const {statusCode, message} = this.handleMongoError(error);
             return this.responseData(statusCode, true, message);

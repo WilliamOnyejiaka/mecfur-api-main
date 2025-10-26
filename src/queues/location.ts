@@ -53,9 +53,11 @@ location.route(QueueEvents.LOCATION_UPDATE, async (message: any, io: Server) => 
 location.route(QueueEvents.LOCATION_NEAR_BY, async (message: any, io: Server) => {
     const {payload} = message;
 
+    console.log(payload)
+
     try {
         const locationService = new Location();
-        const mechanics = await locationService.findNearbyMechanics(payload.latitude, payload.longitude);
+        const mechanics = await locationService.findNearbyMechanics(payload.latitude, payload.longitude,payload.radius,payload.limit);
 
         const namespace = io.of(Namespaces.BASE);
         namespace.to(payload.userId).emit(Events.NEARBY_MECHANICS, Handler.responseData(false, "Nearby mechanics", mechanics));

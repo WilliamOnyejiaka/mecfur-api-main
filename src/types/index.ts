@@ -25,7 +25,7 @@ export type MechanicLocation = {
     mechanicId: string,
     latitude: number,
     longitude: number,
-    timestamp: Date,
+    timestamp: any,
 };
 
 export interface Coordinates {

@@ -238,6 +238,7 @@ export enum QueueEvents {
     USER_LIKE ="user.like",
     USER_VISIT="user.visit",
     MAKE_REQUEST="request.make_request",
+    CREATE_JOB="request.create_job",
     LOCATION_UPDATE="location.update",
     LOCATION_NEAR_BY="location.near_by",
     TRACK_MECHANIC="location.track_mechanic"

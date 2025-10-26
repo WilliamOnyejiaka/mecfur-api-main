@@ -117,10 +117,14 @@ export default class SocketHandler {
         let {
             latitude,
             longitude,
+            radius,
+            limit
         } = data;
 
-        latitude = parseInt(latitude) || 0;
-        longitude = parseInt(longitude) || 0;
+        latitude = parseFloat(latitude) || 0;
+        longitude = parseFloat(longitude) || 0;
+        radius = parseFloat(radius) || 20;
+        limit = parseInt(limit) || 20;
 
         const validCoordinates = Location.isValidLatLng(latitude, longitude);
 
@@ -133,7 +137,9 @@ export default class SocketHandler {
             payload: {
                 latitude,
                 longitude,
-                userId
+                userId,
+                radius,
+                limit
             },
             eventType: QueueEvents.LOCATION_NEAR_BY,
         };

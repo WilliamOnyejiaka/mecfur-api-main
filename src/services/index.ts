@@ -11,6 +11,7 @@ import Notification from "./Notification";
 import Location from "./Location";
 import Mechanic from "./Mechanic";
 import Request from "./Request";
+import Rating from "./Rating";
 
 export {
     Authentication,
@@ -25,5 +26,6 @@ export {
     Notification,
     Location,
     Mechanic,
-    Request
+    Request,
+    Rating
 };

@@ -1,6 +1,7 @@
 import auth from "./auth";
 import mechanic from "./mechanic";
 import notification from "./notification";
+import rating from "./rating";
 import requestRoute from "./request";
 import user from "./user";
 
@@ -9,5 +10,6 @@ export {
     user,
     notification,
     mechanic,
-    requestRoute
+    requestRoute,
+    rating
 };
