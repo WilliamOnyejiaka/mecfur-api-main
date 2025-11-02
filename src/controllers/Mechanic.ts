@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import Controller from "./bases/Controller";
-import {Mechanic as Service} from "../services";
+import Service from "../services/Mechanic";
 
 
 export default class Mechanic {

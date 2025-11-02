@@ -1,6 +1,6 @@
 import { NotificationModel } from "../models/Notification";
-import { pagination } from "../utils";
 import BaseService from "./bases/BaseService";
+import pagination from "../utils/pagination";
 
 export default class Notification extends BaseService {
 

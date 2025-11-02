@@ -1,8 +1,10 @@
 import {body, header, param, query, validationResult} from "express-validator";
-import {emailValidator, numberValidator, zipCodeValidator} from "../validators";
 import {HttpStatus} from "../types/constants";
 import mongoose from "mongoose";
 import {NextFunction, Response, Request} from "express";
+import emailValidator from "../validators/emailValidator";
+import zipCodeValidator from "../validators/zipCodeValidator";
+import numberValidator from "../validators/numberValidator";
 
 export const errorDetails = (message: string, statusCode: number) => {
     return JSON.stringify({

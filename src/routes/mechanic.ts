@@ -1,7 +1,7 @@
 import {Router, Request, Response} from 'express';
 import asyncHandler from "express-async-handler";
-import {Mechanic} from "../controllers";
 import {editProfile, updatePassword} from "../middlewares/routes/user";
+import Mechanic from "../controllers/Mechanic";
 
 const mechanic = Router();
 

@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import Controller from "./bases/Controller";
 import {validationResult} from "express-validator";
-import {User as UserService} from "../services";
+import UserService from "../services/User";
 import {EditData} from "../types";
 
 export default class User {

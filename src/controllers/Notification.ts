@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Controller from "./bases/Controller";
-import { Notification as NotificationService } from "../services";
+import NotificationService from "../services/Notification";
 import { validationResult } from "express-validator";
 
 export default class Notification {

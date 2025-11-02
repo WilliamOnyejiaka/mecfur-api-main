@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
-import {Cloudinary, Token} from ".";
-import {env} from "../config";
 import UserModel from "../models/UserModel"
 import {FailedFiles, UploadedFiles} from "../types";
 import {CdnFolders, HttpStatus, ResourceType, UserType} from "../types/constants";
-import {Password} from "../utils";
 import BaseService from "./bases/BaseService";
-import {TokenBlackList, UserCache} from "../cache";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
 import MechanicModel from "../models/MechanicModel";
+import TokenBlackList from "../cache/TokenBlacklist";
+import UserCache from "../cache/UserCache";
+import Token from "./Token";
+import Cloudinary from "./Cloudinary";
+import Password from "../utils/Password";
 
 // * Authentication class for various users
 export default class Authentication extends BaseService {

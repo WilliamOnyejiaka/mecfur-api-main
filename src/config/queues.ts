@@ -1,7 +1,9 @@
 import {Server} from 'socket.io';
 import notification from '../queues/notification';
-import {request, user,location} from "./../queues";
 import { QueueConfig} from '../types';
+import user from "../queues/user";
+import request from "../queues/request";
+import location from "../queues/location";
 
 
 export interface UserUpdatedEvent {

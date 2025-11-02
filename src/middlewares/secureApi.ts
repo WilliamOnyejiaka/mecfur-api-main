@@ -1,6 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {env} from "../config";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
 
 export default function secureApi(req: Request, res: Response, next: NextFunction) {
     const apiKey = req.headers['x-api-key'];

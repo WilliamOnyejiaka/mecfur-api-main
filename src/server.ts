@@ -1,12 +1,13 @@
-import { connectDB, createApp, redisClient } from "./config";
-import { env } from "./config";
 import cron from "node-cron";
 import mongoose from "mongoose";
-import { RabbitMQ } from "./services/RabbitMQ";
 import { QUEUES, QueueName } from "./config/queues";
 import { ping, processOutbox } from "./handlers/cron-jobs";
 import { createClient, RedisClientType } from "redis";
-import { EnvKey } from "./config/env";
+import env, { EnvKey } from "./config/env";
+import redisClient from "./config/redis";
+import createApp from "./config/app";
+import {RabbitMQ} from "./services/RabbitMQ";
+import connectDB from "./config/db";
 
 
 const PORT = env(EnvKey.PORT)!;

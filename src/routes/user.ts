@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { User } from "./../controllers";
+import User from "./../controllers/User";
 import asyncHandler from "express-async-handler";
 import {editImages, editProfile, updateLocation, updatePassword} from "../middlewares/routes/user";
 

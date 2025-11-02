@@ -3,7 +3,7 @@ import RabbitMQRouter from "../utils/RabbitMQRouter";
 import {NotificationModel} from "../models/Notification";
 import {Namespaces, exchange, QueueEvents, QueueNames, UserType} from "../types/constants";
 import BaseService from "../services/bases/BaseService";
-import {logger} from "../config";
+import logger from "../config/logger";
 
 const notification = new RabbitMQRouter({
     name: QueueNames.NOTIFICATION,

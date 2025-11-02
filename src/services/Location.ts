@@ -1,11 +1,11 @@
 import S2 from '@radarlabs/s2';
-import {redisClient} from "./../config";
 import MechanicLocationModel from "../models/LocationModel";
 import {Coordinates, MechanicLocation} from "../types";
 import {QueueEvents, QueueNames} from "../types/constants";
 import {RabbitMQ} from "./RabbitMQ";
-import {logger} from "../config";
 import BaseService from "./bases/BaseService";
+import redisClient from "../config/redis";
+import logger from "../config/logger";
 
 const S2_LEVEL = 14;
 

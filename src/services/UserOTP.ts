@@ -1,7 +1,8 @@
-import {Authentication, OTP} from ".";
 import UserModel from "../models/UserModel";
 import {OTPType, UserType} from "../types/constants";
-import {Password} from "../utils";
+import Authentication from "./Authentication";
+import OTP from "./OTP";
+import Password from "../utils/Password";
 
 export default class UserOTP extends Authentication {
 

@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { Notification } from "../controllers";
+import Notification from "../controllers/Notification";
 import asyncHandler from "express-async-handler";
 
 const notification: Router = Router();

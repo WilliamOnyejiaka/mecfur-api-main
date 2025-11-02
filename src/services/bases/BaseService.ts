@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {pagination} from "../../utils";
+import pagination from "../../utils/pagination";
 
 export default class BaseService {
 

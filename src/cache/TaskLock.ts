@@ -1,4 +1,4 @@
-import { redisClient } from "./../config";
+import redisClient from "../config/redis";
 
 export default class TaskLock {
 

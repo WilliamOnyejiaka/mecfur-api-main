@@ -1,9 +1,8 @@
 import nodemailer from "nodemailer";
-import {env} from "../config";
 import ejs from "ejs";
 import path from "path";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
 
 
 export default class Email {

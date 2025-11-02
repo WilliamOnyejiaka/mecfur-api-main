@@ -1,8 +1,9 @@
-import { cloudinary, logger } from "../config";
 import BaseService from "./bases/BaseService";
 import { CdnFolders, ResourceType,imageFolders } from "../types/constants";
 import { UploadedFiles, FailedFiles } from "../types";
-import { compressImage } from "./../utils";
+import cloudinary from "../config/cloudinary";
+import compressImage from "../utils/compressImage";
+import logger from "../config/logger";
 
 export default class Cloudinary extends BaseService {
 

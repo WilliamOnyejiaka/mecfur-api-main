@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { Token } from '../services';
-import { TokenBlackList } from '../cache';
-import { env } from "./../config";
 import {HttpStatus, HttpStatusMessage} from "../types/constants";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
+import TokenBlackList from "../cache/TokenBlacklist";
+import Token from "../services/Token";
 
 const verifyJWT = (types: string[], neededData: string[] = ['data']) => async (req: Request, res: Response, next: NextFunction) => {
     const tokenSecret: string = env(EnvKey.TOKEN_SECRET)!;

@@ -1,5 +1,5 @@
 import { Cache } from "../types";
-import { redisClient } from "./../config";
+import redisClient from "../config/redis";
 
 export default class OTPCache implements Cache {
 

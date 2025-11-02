@@ -1,8 +1,8 @@
 // @ts-ignore
 import {body, param, query} from "express-validator";
 import {handleValidationErrors, objectIdIsValid} from "../validators";
-import {verifyJWT} from "../index";
 import {UserType} from "../../types/constants";
+import verifyJWT from "../verifyJWT";
 
 export const makeRequest = [
     verifyJWT([UserType.USER]),

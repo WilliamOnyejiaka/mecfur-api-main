@@ -3,14 +3,14 @@ import RabbitMQRouter from "../utils/RabbitMQRouter";
 import {NotificationModel} from "../models/Notification";
 import {Namespaces, exchange, QueueEvents, QueueNames, UserType, Events} from "../types/constants";
 import BaseService from "../services/bases/BaseService";
-import {logger} from "../config";
 import MechanicLocationModel from "../models/LocationModel";
 import JobRequestModel from "../models/JobRequestModel";
 import {Types} from "mongoose";
 import LocationModel from "../models/LocationModel";
 import {MechanicLocation} from "../types";
-import {Location} from "../services";
+import Location from "../services/Location";
 import Handler from "../io/handlers/Handler";
+import logger from "../config/logger";
 
 const location = new RabbitMQRouter({
     name: QueueNames.LOCATION,

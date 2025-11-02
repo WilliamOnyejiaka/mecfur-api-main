@@ -1,8 +1,8 @@
 import * as amqp from 'amqp-connection-manager';
 import {  QUEUES, QueueName } from '../config/queues';
 import { Channel, ChannelWrapper } from 'amqp-connection-manager';
-import { env, logger } from '../config';
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
+import logger from "../config/logger";
 
 export class RabbitMQ {
     private static connection: amqp.AmqpConnectionManager | null = null;
@@ -111,7 +111,7 @@ export class RabbitMQ {
                                 return;
                             }
 
-                            console.log(`👍 Received on ${queueName} [${eventType}]`);
+                            console.log(`👍 Received on ${queueName} ${eventType}`);
                             await QUEUES[queueName].handlers[eventType](message, io);
                             channel.ack(msg);
                         } catch (err) {

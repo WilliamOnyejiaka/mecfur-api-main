@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 import BaseService from "./bases/BaseService";
 import UserModel from "./../models/UserModel";
-import {calculateProfileCompletion, Password} from "../utils";
 import {EditData, FailedFiles, UploadArrResult, UploadedFiles} from "../types";
 import {CdnFolders, HttpStatus, ResourceType, UserType} from "../types/constants";
-import {Cloudinary, ImageService} from ".";
-import {emailValidator} from "../validators";
-import {UserCache, UserSocket} from "../cache";
-import {env} from "../config";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
+import UserSocket from "../cache/UserSocket";
+import UserCache from "../cache/UserCache";
+import Password from "../utils/Password";
+import emailValidator from "../validators/emailValidator";
+import Cloudinary from "./Cloudinary";
 
 export default class User extends BaseService {
 

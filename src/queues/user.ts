@@ -4,7 +4,7 @@ import { UserUpdatedEvent } from "../config/queues";
 import UserModel from "../models/UserModel";
 import notify from "../services/notify";
 import BaseService from "../services/bases/BaseService";
-import { logger } from "../config";
+import logger from "../config/logger";
 import { exchange, QueueEvents, QueueNames } from "../types/constants";
 
 const service = new BaseService();

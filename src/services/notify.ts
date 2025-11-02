@@ -1,7 +1,6 @@
 import { RabbitMQ } from "./RabbitMQ";
 import { QueueEvents, QueueNames } from "../types/constants";
 import Outbox from "./Outbox";
-import { logger } from "../config";
 
 export enum NotificationProvider {
     Email = "email",

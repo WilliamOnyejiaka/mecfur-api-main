@@ -1,8 +1,8 @@
 import {HttpStatus, UserType} from "../types/constants";
 import BaseService from "./bases/BaseService";
 import mongoose from "mongoose";
-import {UserCache} from "../cache";
 import MechanicModel from "../models/MechanicModel";
+import UserCache from "../cache/UserCache";
 
 export default class Mechanic extends BaseService {
 

@@ -1,9 +1,9 @@
-import {Email} from ".";
-import {OTPCache} from "../cache";
 import BaseService from "./bases/BaseService";
 import {OTPType, UserType} from "../types/constants";
 import path from "path";
-import {randomInt} from "../utils";
+import OTPCache from "../cache/OTPCache";
+import randomInt from "../utils/randomInt";
+import Email from "./Email";
 
 
 export default class OTP extends BaseService {

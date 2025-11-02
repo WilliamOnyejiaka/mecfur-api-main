@@ -1,6 +1,5 @@
 import {Request, Response} from "express";
-
-import {Authentication as Service} from "../services";
+import Service from "../services/Authentication";
 
 
 export default class Authentication {

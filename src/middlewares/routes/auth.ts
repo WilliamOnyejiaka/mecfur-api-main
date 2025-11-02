@@ -1,10 +1,10 @@
 // @ts-ignore
 import {body} from 'express-validator';
 import {handleValidationErrors} from "../validators";
-import {uploads} from "../index";
 import {ResourceType} from "../../types/constants";
 import rateLimit, {ipKeyGenerator} from "express-rate-limit";
 import {createStore} from "../../config/redis";
+import uploads from "../multer";
 
 const signUpLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour

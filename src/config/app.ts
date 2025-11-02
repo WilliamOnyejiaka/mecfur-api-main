@@ -2,27 +2,27 @@ import cors from "cors";
 import http from 'http';
 import express, {Application, NextFunction, Request, Response} from "express";
 import morgan from "morgan";
-import {env, initializeIO, logger} from ".";
 import {RedisClientType} from "redis";
-import {multerErrorHandler, validateJWT, verifyJWT} from "../middlewares";
-import {
-    auth,
-    notification as notificationRoute,
-    user,
-    requestRoute
-} from "./../routes";
 import helmet from "helmet";
 import {RabbitMQ} from "../services/RabbitMQ";
 import { QueueName, QUEUES} from "./queues";
-import {socketEvent} from "../io/events";
+import socketEvent from "../io/events/socketEvent";
 import {Namespaces, UserType} from "../types/constants";
 import {metricsMiddleware, register} from "../utils/prometheus";
 import notify from "../services/notify";
-import {EnvKey} from "./env";
-
-import {Location} from "./../services"
+import env, {EnvKey} from "./env";
 import {runSampleTests} from "../services/test";
-import {mechanic, rating} from "../routes";
+import logger from "./logger";
+import validateJWT from "../middlewares/validateJWT";
+import initializeIO from "./io";
+import multerErrorHandler from "../middlewares/multerErrorHandler";
+import auth from "../routes/auth";
+import verifyJWT from "../middlewares/verifyJWT";
+import user from "../routes/user";
+import mechanic from "../routes/mechanic";
+import requestRoute from "../routes/request";
+import rating from "../routes/rating";
+import notificationRoute from "../routes/notification";
 
 export default async function createApp(pubClient: RedisClientType, subClient: RedisClientType) {
     const app: Application = express();

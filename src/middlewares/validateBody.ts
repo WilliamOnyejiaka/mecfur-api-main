@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { bodyValidator } from "../validators";
+import bodyValidator from "../validators/bodyValidator";
 
 const validateBody = (neededAttributes: string[]) => (req: Request, res: Response, next: NextFunction) => {
     const validationResponse = bodyValidator(

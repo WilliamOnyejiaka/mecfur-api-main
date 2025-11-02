@@ -1,7 +1,7 @@
 import {Server} from "socket.io";
 import {ISocket, MechanicLocation} from "../../types";
-import {logger} from "../../config";
-import {Location} from "../../services";
+import logger from "../../config/logger";
+import Location from "../../services/Location";
 import {Events, QueueEvents, QueueNames, UserType} from "../../types/constants";
 import Handler from "./Handler";
 import mongoose from "mongoose";

@@ -1,7 +1,7 @@
-import { env } from "../../config";
-import { Outbox } from "../../services";
+import env from "../../config/env";
+import Outbox from "../../services/Outbox";
 import axios from "axios";
-import { EnvKey } from "../../config/env";
+import {EnvKey} from "../../config/env";
 
 export async function processOutbox() {
     await Outbox.process();

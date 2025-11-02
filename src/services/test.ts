@@ -1,6 +1,6 @@
 import S2 from '@radarlabs/s2';
 import redisClient from './../config/redis';
-import {Location} from ".";
+import Location from "./Location";
 import {MechanicLocation} from "../types";
 
 

@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import Controller from "./bases/Controller";
-import {Request as Service} from "../services";
+import Service from "../services/Request";
 
 export default class RequestController {
 
@@ -33,7 +33,7 @@ export default class RequestController {
             pickupAddress,
             userId,
             Number(radius)
-            );
+        );
         Controller.response(res, serviceResult);
     }
 
@@ -75,6 +75,24 @@ export default class RequestController {
         const parsedPage = parseInt(page as string) || 1;
         const parsedLimit = parseInt(limit as string) || 10;
         const serviceResult = await RequestController.service.requests(userId, parsedPage, parsedLimit);
+        Controller.response(res, serviceResult);
+    }
+
+    public static async mechanics(req: Request, res: Response) {
+        const {id: userId} = res.locals.data;
+        const {page, limit} = req.query;
+
+        const parsedPage = parseInt(page as string) || 1;
+        const parsedLimit = parseInt(limit as string) || 10;
+        const serviceResult = await RequestController.service.getAllMechanics(parsedPage, parsedLimit);
+        Controller.response(res, serviceResult);
+    }
+
+    public static async nearByMechanics(req: Request, res: Response) {
+        const {id: userId} = res.locals.data;
+        const {lon, lat, radius} = req.params;
+
+        const serviceResult = await RequestController.service.nearbyMechanics(lon, lat, radius);
         Controller.response(res, serviceResult);
     }
 }

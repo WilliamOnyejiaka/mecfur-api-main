@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import {Rating} from "../controllers";
+import Rating from "../controllers/Rating";
 import asyncHandler from "express-async-handler";
 import {rateMechanic, rateUser} from "../middlewares/routes/rating";
-import {verifyJWT} from "../middlewares";
 import {UserType} from "../types/constants";
+import verifyJWT from "../middlewares/verifyJWT";
 
 
 const rating = Router();

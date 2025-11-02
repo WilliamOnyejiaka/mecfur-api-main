@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import Controller from "./bases/Controller";
-import {Rating as Service} from "../services";
+import  Service from "../services/Rating";
 
 
 export default class Rating {

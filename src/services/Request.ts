@@ -1,12 +1,13 @@
 import BaseService from "./bases/BaseService";
 import JobModel from "../models/JobModel";
-import {HttpStatus, QueueEvents, QueueNames, UserType} from "../types/constants";
+import {Events, HttpStatus, QueueEvents, QueueNames, UserType} from "../types/constants";
 import notify from "./notify";
 import JobRequestModel from "../models/JobRequestModel";
 import MechanicModel from "../models/MechanicModel";
 import {RabbitMQ} from "./RabbitMQ";
 import {Types} from 'mongoose';
-import {Location} from ".";
+import Location from "./Location";
+import Handler from "../io/handlers/Handler";
 
 
 export default class Request extends BaseService {
@@ -32,6 +33,27 @@ export default class Request extends BaseService {
             if (!request) return this.responseData(HttpStatus.NOT_FOUND, true, `Request was not found.`);
             return this.responseData(HttpStatus.OK, false, `Request was retrieved successfully.`, request);
         } catch (error) {
+            const {statusCode, message} = this.handleMongoError(error);
+            return this.responseData(statusCode, true, message);
+        }
+    }
+
+    public async getAllMechanics(page: number, limit: number){
+        try {
+            const skip = (page - 1) * limit;
+
+            // @ts-ignore
+            const [results,total] = await Promise.all([
+                MechanicModel.find({}).limit(limit).skip(skip).select("-password"),
+                MechanicModel.countDocuments({})
+            ]);
+
+            const data = {
+                records: results,
+                pagination: this.createPagination(page, limit, total),
+            };
+            return this.responseData(HttpStatus.OK, true, `Mechanics were retrieved successfully.`, data);
+        }catch (error) {
             const {statusCode, message} = this.handleMongoError(error);
             return this.responseData(statusCode, true, message);
         }
@@ -109,6 +131,25 @@ export default class Request extends BaseService {
 
             return this.responseData(HttpStatus.OK, false, "Job was created successfully.", {result});
         } catch (error) {
+            const {statusCode, message} = this.handleMongoError(error);
+            return this.responseData(statusCode, true, message);
+        }
+    }
+
+    public async nearbyMechanics(longitude: any, latitude: any, radius: any) {
+        try {
+            let location = new Location();
+            latitude = parseFloat(latitude) || 0;
+            longitude = parseFloat(longitude) || 0;
+            radius = parseInt(radius) || 20;
+
+            const validCoordinates = Location.isValidLatLng(latitude, longitude);
+
+            if (!validCoordinates) return this.responseData(200,true, "Invalid coordinates provided");
+
+            const result = await location.findNearbyMechanics(latitude,longitude,radius);
+            return this.responseData(200,false,"Mechanics were retrieved successfully",result);
+        }catch (error) {
             const {statusCode, message} = this.handleMongoError(error);
             return this.responseData(statusCode, true, message);
         }

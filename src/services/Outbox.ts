@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import {env, logger} from "../config";
 import {OutboxModel} from "../models/Outbox";
 import BaseService from "./bases/BaseService";
 import {RabbitMQ} from "./RabbitMQ";
-import {TaskLock} from "../cache";
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
+import TaskLock from "../cache/TaskLock";
+import logger from "../config/logger";
 
 export default class Outbox {
 

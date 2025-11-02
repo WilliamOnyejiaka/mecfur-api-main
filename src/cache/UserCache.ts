@@ -1,5 +1,6 @@
-import {logger, redisClient} from "../config";
 import {UserType} from "../types/constants";
+import redisClient from "../config/redis";
+import logger from "../config/logger";
 
 export default class UserCache {
 

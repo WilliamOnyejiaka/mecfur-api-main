@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { logger } from "../config";
+import logger from "../config/logger";
 
 export default async function compressImage(image: Express.Multer.File) {
     try {

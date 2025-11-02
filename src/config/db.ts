@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import {env} from ".";
-import {EnvKey} from "./env";
+import env, {EnvKey} from "./env";
 
 export default async function connectDB() {
     mongoose.set("strictQuery", false);

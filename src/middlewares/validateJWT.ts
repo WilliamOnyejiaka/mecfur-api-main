@@ -1,9 +1,8 @@
-import {Token} from '../services';
 import {HttpStatus, HttpStatusMessage} from '../types/constants';
-import {TokenBlackList} from '../cache';
 import {ISocket} from '../types';
-import {env} from '../config';
-import {EnvKey} from "../config/env";
+import env, {EnvKey} from "../config/env";
+import TokenBlackList from "../cache/TokenBlacklist";
+import Token from "../services/Token";
 
 const validateJWT = (types: string[],neededData: string[] = ['data']) => async (socket: ISocket, next: (err?: any) => void) => {
     const token = socket.handshake.auth.token || socket.handshake.headers['token'];

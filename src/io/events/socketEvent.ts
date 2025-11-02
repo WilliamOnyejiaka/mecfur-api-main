@@ -1,5 +1,5 @@
-import { SocketNamespace } from "../namespaces";
-import { SocketHandler } from "../handlers";
+import SocketNamespace from "../namespaces/SocketNamespace";
+import SocketHandler from "../handlers/SocketHandler";
 
 const socketEvent = new SocketNamespace();
 

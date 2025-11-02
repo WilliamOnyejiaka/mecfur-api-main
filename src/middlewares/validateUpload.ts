@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { logger } from "../config";
+import logger from "../config/logger";
 
 const validateUpload = (fileLength: number) => (req: Request, res: Response, next: NextFunction) => {
     if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {

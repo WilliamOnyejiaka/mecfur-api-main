@@ -1,7 +1,7 @@
 import BaseService from "./bases/BaseService";
-import { Cloudinary } from ".";
 import { UploadArrResult, UploadedImageData, UploadResult } from "../types";
 import { CdnFolders, ResourceType } from "../types/constants";
+import Cloudinary from "./Cloudinary";
 
 const bytesToKB = (bytes: number) => (bytes / 1024).toFixed(2); // Converts bytes to KB
 const bytesToMB = (bytes: number) => (bytes / (1024 * 1024)).toFixed(2); // Converts bytes to MB
