@@ -8,7 +8,7 @@ const auth = Router();
 auth.post("/users/sign-up", signUp, asyncHandler(Auth.create));
 auth.post("/mechanics/sign-up", mechanicsValidator, asyncHandler(Auth.createMechanic));
 
-auth.get("/users/login", login, asyncHandler(Auth.login));
-auth.get("/mechanics/login", login, asyncHandler(Auth.mechanicLogin));
+auth.post("/users/login", login, asyncHandler(Auth.login));
+auth.post("/mechanics/login", login, asyncHandler(Auth.mechanicLogin));
 
 export default auth;
